@@ -44,13 +44,13 @@ class GestureRecognizer extends Component {
       onPanResponderTerminate: responderEnd
     });
   }
-  
+
   componentDidUpdate(prevProps) {
     if (this.props.config !== prevProps.config) {
       this.swipeConfig = Object.assign(swipeConfig, this.props.config);
     }
   }
-  
+
   _handleShouldSetPanResponder(evt, gestureState) {
 
     // start --- 2020/12/4 fix the problem that scroll view can't work inside on ios
@@ -109,10 +109,27 @@ class GestureRecognizer extends Component {
   _getSwipeDirection(gestureState) {
     const { SWIPE_LEFT, SWIPE_RIGHT, SWIPE_UP, SWIPE_DOWN } = swipeDirections;
     const { dx, dy } = gestureState;
-    if (this._isValidHorizontalSwipe(gestureState)) {
-      return dx > 0 ? SWIPE_RIGHT : SWIPE_LEFT;
-    } else if (this._isValidVerticalSwipe(gestureState)) {
-      return dy > 0 ? SWIPE_DOWN : SWIPE_UP;
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+    const validHorizontal = this._isValidHorizontalSwipe(gestureState);
+    const validVertical = this._isValidVerticalSwipe(gestureState);
+    const horizontalDirection = dx > 0 ? SWIPE_RIGHT : SWIPE_LEFT;
+    const verticalDirection = dy > 0 ? SWIPE_DOWN : SWIPE_UP;
+    //check which delta is larger and choose that order to evaluate
+    if (absDx > absDy) {
+      if (validHorizontal) {
+        return horizontalDirection;
+      } else if (validVertical) {
+        return verticalDirection;
+      }
+    }
+    else {
+      if (validVertical) {
+        return verticalDirection;
+      }
+      else if (validHorizontal) {
+        return horizontalDirection;
+      }
     }
     return null;
   }
