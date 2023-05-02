@@ -63,6 +63,7 @@ class GestureRecognizer extends Component {
     // end --- 2020/12/4 fix the problem that scroll view can't work inside on ios
 
     return (
+      this.props.swipeEnabled &&
       evt.nativeEvent.touches.length === 1 &&
       !this._gestureIsClick(gestureState)
     );
@@ -150,5 +151,9 @@ class GestureRecognizer extends Component {
     return <View {...this.props} {...this._panResponder.panHandlers} />;
   }
 }
+
+GestureRecognizer.defaultProps = {
+  swipeEnabled: true,
+};
 
 export default GestureRecognizer;
