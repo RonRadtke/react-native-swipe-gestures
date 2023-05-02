@@ -13,7 +13,7 @@ React Native component for handling swipe gestures in up, down, left and right d
 
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import GestureHandler, {swipeDirections} from 'react-native-swipe-gestures';
 
 class SomeComponent extends Component {
 
@@ -69,7 +69,7 @@ class SomeComponent extends Component {
     };
 
     return (
-      <GestureRecognizer
+      <GestureHandler
         onSwipe={(direction, state) => this.onSwipe(direction, state)}
         onSwipeUp={(state) => this.onSwipeUp(state)}
         onSwipeDown={(state) => this.onSwipeDown(state)}
@@ -83,7 +83,7 @@ class SomeComponent extends Component {
         >
         <Text>{this.state.myText}</Text>
         <Text>onSwipe callback received gesture: {this.state.gestureName}</Text>
-      </GestureRecognizer>
+      </GestureHandler>
     );
   }
 }

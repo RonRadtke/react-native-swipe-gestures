@@ -1,9 +1,8 @@
 {
   "name": "react-native-swipe-gestures",
-  "types": "index.d.ts",
   "version": "1.0.5",
   "description": "4-directional swipe gestures for react-native",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
